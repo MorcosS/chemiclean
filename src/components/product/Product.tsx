@@ -1,8 +1,8 @@
 import React from "react";
-import IProduct from "../../Interfaces/product/IProduct";
+import Product from "../../redux/types/products/productsTypes";
 
-export default class UserComponent extends React.Component<IProduct, {}> {
-  constructor(props: IProduct) {
+export default class UserComponent extends React.Component<Product, {}> {
+  constructor(props: Product) {
     super(props);
   }
   render() {

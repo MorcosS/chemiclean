@@ -1,25 +1,50 @@
-import React from 'react';
-import logo from '../../assets/icons/logo.svg';
+import React from "react";
+import { Table, Pagination, PageItem } from "react-bootstrap";
+import { ProductsState } from "../../redux/types/products/productsTypes";
 
-const Products: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="http://localhost:64888/Api/Products"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+interface ProductsProps {
+  chat: ProductsState
+}
+
+
+class Products extends React.Component<ProductsProps> {
+  render() {
+    return (
+      <div className="App">
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td colSpan={2}>Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+    );
+  }
 }
 
 export default Products;
