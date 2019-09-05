@@ -11,8 +11,15 @@ export default interface Product {
   isUpdated: boolean;
 }
 
+export interface Paging {
+  currentPage: number,
+  count: number,
+  itemsPerPage: number
+}
+
 export interface ProductsState {
-  products: Product[];
+  products: Product[],
+  paging: Paging
 }
 
 interface GetProductsStartAction {
@@ -21,7 +28,11 @@ interface GetProductsStartAction {
 
 interface GetProductsSuccessAction {
   type: typeof GET_PRODUCTS_REQUEST_SUCCESS,
-  data: Product[]
+  data: {
+    items: Product[],
+    count: number
+  },
+  currentPage: number
 }
 
 interface GetProductsFailureAction {
