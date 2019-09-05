@@ -1,4 +1,5 @@
 import Product from "../redux/types/products/productsTypes";
+import { CONSTANTS } from '../constants/Constants';
 
 
 // export const getAllProducts = () => {
@@ -18,7 +19,7 @@ import Product from "../redux/types/products/productsTypes";
 //   };
 
   export function getAllProducts<T>(page:number): Promise<T> {
-    return fetch("http://localhost:64889/Api/" + `Products?page=${page}`)
+    return fetch(CONSTANTS.BASE_URL + `Products?page=${page}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText)
