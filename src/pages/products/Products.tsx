@@ -18,7 +18,7 @@ interface ProductsProps {
 class Products extends React.Component<ProductsProps> {
 
   componentDidMount() {
-    this.props.getProducts(1)
+    this.props.getProducts(0)
   }
 
   render() {
