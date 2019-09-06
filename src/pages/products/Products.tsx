@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { Table, Pagination, PageItem, Form } from "react-bootstrap";
 import Product, { ProductsState, Paging } from "../../redux/types/products/productsTypes";
-import { getProducts } from '../../redux/actions/products/productsActions';
+import { getProducts, deleteProductAction, updateProductAction, addProductAction } from '../../redux/actions/products/productsActions';
 import { connect } from 'react-redux'
 import { AppState } from "../../redux/reducers";
 import ProductItem from "../../components/product/ProductItem"
@@ -12,6 +12,9 @@ import { CONSTANTS } from '../../constants/Constants';
 interface ProductsProps {
   products: Product[],
   getProducts: (page: number) => void,
+  deleteProductAction: (id: number) => void,
+  updateProductAction: (product: Product) => void,
+  addProductAction: (product: Product) => void,
   paging: Paging
 }
 
@@ -25,45 +28,34 @@ class Products extends React.Component<ProductsProps> {
 
   changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang, (err, t) => {
-      if (err) return ;
+      if (err) return;
       this.forceUpdate()
     })
   }
 
   render() {
-    const { products, getProducts, paging } = this.props
-    const columns = [{
-      dataField: 'id',
-      text: '#'
-    }, {
-      dataField: 'name',
-      text:i18n.t(CONSTANTS.NAME)
-    }, {
-      dataField: 'supplier',
-      text: i18n.t(CONSTANTS.SUPPLIER)
-    }];
-    
-    
+    const { products, getProducts, paging, deleteProductAction, updateProductAction, addProductAction } = this.props
+
     return (
       <div className="App">
         <form>
-          <input 
+          <input
             type='radio'
             name="language" value="en"
             onChange={() => this.changeLanguage("en")}
             defaultChecked
           />
-          <label className='custom-control-label' htmlFor='customSwitchesChecked'>    
-          {i18n.t(CONSTANTS.ENGLISH)}    &nbsp;
+          <label className='custom-control-label' htmlFor='customSwitchesChecked'>
+            {i18n.t(CONSTANTS.ENGLISH)}    &nbsp;
           </label>
-            <input 
+          <input
             type='radio'
             name="language" value="da"
             onChange={() => this.changeLanguage("da")}
-            
+
           />
           <label className='custom-control-label' htmlFor='customSwitchesChecked'>
-          {i18n.t(CONSTANTS.DANISH)}     
+            {i18n.t(CONSTANTS.DANISH)}
           </label>
         </form>
         <Table striped bordered hover size="sm">
@@ -74,11 +66,12 @@ class Products extends React.Component<ProductsProps> {
               <th>{i18n.t(CONSTANTS.SUPPLIER)}</th>
               <th>{i18n.t(CONSTANTS.UPDATED)}</th>
               <th>{i18n.t(CONSTANTS.DOWNLOAD)}</th>
+              <th>{i18n.t(CONSTANTS.ACTION)}</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product: Product) =>
-              <ProductItem id={product.id} name={product.name} isUpdated={product.isUpdated} supplier={product.supplier} />
+              <ProductItem deleteItem={deleteProductAction} updateItem={updateProductAction} addItem={addProductAction} product={product} />
             )}
           </tbody>
         </Table>
@@ -91,12 +84,17 @@ class Products extends React.Component<ProductsProps> {
 function mapStateToProps(state: AppState): ProductsState {
   return {
     products: state.products.products,
-    paging: state.products.paging
+    paging: state.products.paging,
+    loading: state.products.loading,
+    error: state.products.error
   };
 }
 
 const mapDispatchToProps = {
-  getProducts
+  getProducts,
+  deleteProductAction,
+  updateProductAction,
+  addProductAction
 }
 
 

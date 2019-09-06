@@ -13,13 +13,21 @@ interface ProductItemState {
   isUpdated: boolean
 }
 
-export default class UserComponent extends React.Component<Product, ProductItemState> {
-  constructor(props: Product) {
+interface ProductProps {
+  product: Product,
+  deleteItem: (id: number) => void,
+  updateItem: (product: Product) => void,
+  addItem: (product: Product) => void
+}
+
+
+export default class UserComponent extends React.Component<ProductProps, ProductItemState> {
+  constructor(props: ProductProps) {
     super(props);
     this.state = {
-      name: props.name,
-      supplier: props.supplier,
-      isUpdated: props.isUpdated,
+      name: props.product.name,
+      supplier: props.product.supplier,
+      isUpdated: props.product.isUpdated,
       isNameEditable: false,
       isSupplierEditable: false,
       isUpdatedEditable: false
@@ -41,19 +49,34 @@ export default class UserComponent extends React.Component<Product, ProductItemS
 
 
   change(cellType: string, event: React.ChangeEvent<HTMLInputElement>) {
+    const { updateItem, product } = this.props
+    const { name, supplier, isUpdated } = this.state
     switch (cellType) {
       case "name": {
         this.setState({ name: event.target.value });
-
+        updateItem({ supplier: supplier, isUpdated: isUpdated, name: event.target.value, id: product.id })
       } break;
-      case "supplier": this.setState({ supplier: event.target.value }); break;
-      case "isUpdated": this.setState({ isUpdated: (event.target.checked) }); break;
+      case "supplier": {
+        this.setState({ supplier: event.target.value })
+        updateItem({ supplier: event.target.value, isUpdated: isUpdated, name: name, id: product.id })
+      }; break;
+      case "isUpdated": {
+        this.setState({ isUpdated: (event.target.checked) })
+        updateItem({ supplier: supplier, isUpdated: event.target.checked, name: name, id: product.id })
+      }; break;
       default: break;
     }
   }
 
+  handleDeleteItem = () => {
+    const { deleteItem, product } = this.props
+    if (window.confirm(i18n.t(CONSTANTS.DELETE_CONFIRMATION_MESSAGE))) {
+      deleteItem(product.id)
+    }
+  }
+
   render() {
-    const { id } = this.props
+    const { id } = this.props.product
     const { isNameEditable,
       isSupplierEditable,
       isUpdatedEditable, name, isUpdated, supplier } = this.state
@@ -67,7 +90,9 @@ export default class UserComponent extends React.Component<Product, ProductItemS
         <td onClick={() => this.updateCell('isUpdated', true)} >{!isUpdatedEditable ? isUpdated.toString() : <input onChange={(event) => this.change("isUpdated", event)} onBlur={() => this.updateCell('isUpdated', false)} type="checkbox" defaultChecked={isUpdated} />}</td>
         <td><a href={CONSTANTS.BASE_URL + "Download?id=" + id} download>{i18n.t(CONSTANTS
           .DOWNLOAD_DOC)}</a></td>
-
+        <td>
+          <span onClick={this.handleDeleteItem} className="glyphicon glyphicon-trash"></span>
+        </td>
       </tr>
     );
   }

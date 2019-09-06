@@ -3,5 +3,7 @@
     "SUPPLIER":"Supplier",
     "UPDATED":"Updated",
     "DOWNLOAD":"Download",
-    "DOWNLOAD_DOC":"Download Document"
+    "DOWNLOAD_DOC":"Download Document",
+    "ACTION":"Action",
+    "DELETE_CONFIRMATION_MESSAGE":"Are you sure you want to delete this item?"
 }
