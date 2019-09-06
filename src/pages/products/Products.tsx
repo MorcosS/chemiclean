@@ -1,12 +1,13 @@
-import React from "react";
-import { Table, Pagination, PageItem } from "react-bootstrap";
+import React, { ChangeEvent } from "react";
+import { Table, Pagination, PageItem, Form } from "react-bootstrap";
 import Product, { ProductsState, Paging } from "../../redux/types/products/productsTypes";
 import { getProducts } from '../../redux/actions/products/productsActions';
 import { connect } from 'react-redux'
 import { AppState } from "../../redux/reducers";
 import ProductItem from "../../components/product/ProductItem"
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
-
+import i18n from "i18next";
+import { CONSTANTS } from '../../constants/Constants';
 
 interface ProductsProps {
   products: Product[],
@@ -21,17 +22,45 @@ class Products extends React.Component<ProductsProps> {
     this.props.getProducts(0)
   }
 
+
+  changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang, (err, t) => {
+      if (err) return ;
+      this.forceUpdate()
+    })
+  }
+
   render() {
-    const { products,getProducts ,paging} = this.props
+    const { products, getProducts, paging } = this.props
     return (
       <div className="App">
+        <form>
+          <input 
+            type='radio'
+            name="language" value="en"
+            onChange={(event) => this.changeLanguage("en")}
+            defaultChecked
+          />
+          <label className='custom-control-label' htmlFor='customSwitchesChecked'>    
+          English    &nbsp;
+          </label>
+            <input 
+            type='radio'
+            name="language" value="da"
+            onChange={(event) => this.changeLanguage("da")}
+            
+          />
+          <label className='custom-control-label' htmlFor='customSwitchesChecked'>
+            Dannish    
+          </label>
+        </form>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Supplier</th>
-              <th>Updated ?</th>
+              <th>{i18n.t(CONSTANTS.NAME)}</th>
+              <th>{i18n.t(CONSTANTS.SUPPLIER)}</th>
+              <th>{i18n.t(CONSTANTS.UPDATED)}</th>
             </tr>
           </thead>
           <tbody>
