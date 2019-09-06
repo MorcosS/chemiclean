@@ -6,8 +6,8 @@ export const EDIT_PRODUCT_ = "GET_ALL_PRODUCTS";
 
 export default interface Product {
   id: number;
-  name: String;
-  supplier: String;
+  name: string;
+  supplier: string;
   isUpdated: boolean;
 }
 

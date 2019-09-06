@@ -1,5 +1,7 @@
 {
     "NAME":"Navn",
     "SUPPLIER":"leverandør",
-    "UPDATED":"opdateret"
+    "UPDATED":"opdateret",
+    "DOWNLOAD":"Download",
+    "DOWNLOAD_DOC":"Download dokument"
 }

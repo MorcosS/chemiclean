@@ -32,26 +32,38 @@ class Products extends React.Component<ProductsProps> {
 
   render() {
     const { products, getProducts, paging } = this.props
+    const columns = [{
+      dataField: 'id',
+      text: '#'
+    }, {
+      dataField: 'name',
+      text:i18n.t(CONSTANTS.NAME)
+    }, {
+      dataField: 'supplier',
+      text: i18n.t(CONSTANTS.SUPPLIER)
+    }];
+    
+    
     return (
       <div className="App">
         <form>
           <input 
             type='radio'
             name="language" value="en"
-            onChange={(event) => this.changeLanguage("en")}
+            onChange={() => this.changeLanguage("en")}
             defaultChecked
           />
           <label className='custom-control-label' htmlFor='customSwitchesChecked'>    
-          English    &nbsp;
+          {i18n.t(CONSTANTS.ENGLISH)}    &nbsp;
           </label>
             <input 
             type='radio'
             name="language" value="da"
-            onChange={(event) => this.changeLanguage("da")}
+            onChange={() => this.changeLanguage("da")}
             
           />
           <label className='custom-control-label' htmlFor='customSwitchesChecked'>
-            Dannish    
+          {i18n.t(CONSTANTS.DANISH)}     
           </label>
         </form>
         <Table striped bordered hover size="sm">
@@ -61,6 +73,7 @@ class Products extends React.Component<ProductsProps> {
               <th>{i18n.t(CONSTANTS.NAME)}</th>
               <th>{i18n.t(CONSTANTS.SUPPLIER)}</th>
               <th>{i18n.t(CONSTANTS.UPDATED)}</th>
+              <th>{i18n.t(CONSTANTS.DOWNLOAD)}</th>
             </tr>
           </thead>
           <tbody>

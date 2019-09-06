@@ -1,5 +1,7 @@
 {
     "NAME":"Name",
     "SUPPLIER":"Supplier",
-    "UPDATED":"Updated"
+    "UPDATED":"Updated",
+    "DOWNLOAD":"Download",
+    "DOWNLOAD_DOC":"Download Document"
 }
