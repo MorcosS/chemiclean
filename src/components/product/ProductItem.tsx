@@ -3,7 +3,6 @@ import Product from "../../redux/types/products/productsTypes";
 import { CONSTANTS } from '../../constants/Constants';
 import i18n from "i18next";
 
-
 interface ProductItemState {
   isNameEditable: boolean,
   isSupplierEditable: boolean,
@@ -79,7 +78,7 @@ export default class UserComponent extends React.Component<ProductProps, Product
     const { id } = this.props.product
     const { isNameEditable,
       isSupplierEditable,
-      isUpdatedEditable, name, isUpdated, supplier } = this.state
+      isUpdatedEditable, name, isUpdated, supplier, addProductAction } = this.state
     return (
       <tr>
         <td>{id}</td>
@@ -91,7 +90,12 @@ export default class UserComponent extends React.Component<ProductProps, Product
         <td><a href={CONSTANTS.BASE_URL + "Download?id=" + id} download>{i18n.t(CONSTANTS
           .DOWNLOAD_DOC)}</a></td>
         <td>
-          <span onClick={this.handleDeleteItem} className="glyphicon glyphicon-trash"></span>
+          {id ? <span onClick={this.handleDeleteItem} className="glyphicon glyphicon-trash"></span>
+            : <p onClick={() => addProductAction({
+              name: name, supplier: name, isUpdated
+                : isUpdated
+            })} >save</p>
+          }
         </td>
       </tr>
     );
