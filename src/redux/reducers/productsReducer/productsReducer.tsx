@@ -1,4 +1,19 @@
-import { ProductsActionTypes, ProductsState, GET_PRODUCTS_REQUEST_SUCCESS, GET_PRODUCTS_REQUEST_STARTED, GET_PRODUCTS_REQUEST_FAILURE, UPDATE_PRODUCTS_REQUEST_STARTED, UPDATE_PRODUCTS_REQUEST_SUCCESS, UPDATE_PRODUCTS_REQUEST_FAILURE, DELETE_PRODUCTS_REQUEST_STARTED, DELETE_PRODUCTS_REQUEST_SUCCESS, DELETE_PRODUCTS_REQUEST_FAILURE, ADD_PRODUCTS_REQUEST_STARTED, ADD_PRODUCTS_REQUEST_SUCCESS, ADD_PRODUCTS_REQUEST_FAILURE } from "../../types/products/productsTypes";
+import {
+  ProductsActionTypes,
+  ProductsState,
+  GET_PRODUCTS_REQUEST_SUCCESS,
+  GET_PRODUCTS_REQUEST_STARTED,
+  GET_PRODUCTS_REQUEST_FAILURE,
+  UPDATE_PRODUCTS_REQUEST_STARTED,
+  UPDATE_PRODUCTS_REQUEST_SUCCESS,
+  UPDATE_PRODUCTS_REQUEST_FAILURE,
+  DELETE_PRODUCTS_REQUEST_STARTED,
+  DELETE_PRODUCTS_REQUEST_SUCCESS,
+  DELETE_PRODUCTS_REQUEST_FAILURE,
+  ADD_PRODUCTS_REQUEST_STARTED,
+  ADD_PRODUCTS_REQUEST_SUCCESS,
+  ADD_PRODUCTS_REQUEST_FAILURE
+} from "../../types/products/productsTypes";
 
 const initialState: ProductsState = {
   products: [],
@@ -9,20 +24,19 @@ const initialState: ProductsState = {
     count: 0,
     itemsPerPage: 0
   }
-}
+};
 
 export function productsReducer(
   state = initialState,
   action: ProductsActionTypes
 ): ProductsState {
   switch (action.type) {
-
     case GET_PRODUCTS_REQUEST_STARTED:
       return {
         ...state,
         loading: true,
-        error: false,
-      }
+        error: false
+      };
 
     case GET_PRODUCTS_REQUEST_SUCCESS:
       return {
@@ -35,82 +49,82 @@ export function productsReducer(
           itemsPerPage: action.data.items.length,
           currentPage: action.currentPage
         }
-      }
+      };
 
     case GET_PRODUCTS_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,
-        error: true,
-      }
-
+        error: true
+      };
 
     case UPDATE_PRODUCTS_REQUEST_STARTED:
-        return {
-          ...state,
-          loading: true,
-          error: false,
-        }
-  
-      case UPDATE_PRODUCTS_REQUEST_SUCCESS:
-        return {
-          ...state,
-          error:false,
-          loading: false
-        }
-  
-      case UPDATE_PRODUCTS_REQUEST_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          error: true,
-        }
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
 
+    case UPDATE_PRODUCTS_REQUEST_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        loading: false
+      };
+
+    case UPDATE_PRODUCTS_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
 
     case DELETE_PRODUCTS_REQUEST_STARTED:
-        return {
-          ...state,
-          loading: true,
-          error: false,
-        }
-  
-      case DELETE_PRODUCTS_REQUEST_SUCCESS:
-        return {
-          ...state,
-          error:false,
-          loading: false,
-          products: action.data.items,
-       
-        }
-  
-      case DELETE_PRODUCTS_REQUEST_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          error: true,
-        }
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
 
-        case ADD_PRODUCTS_REQUEST_STARTED:
-            return {
-              ...state,
-              loading: true,
-              error: false,
-            }
-      
-          case ADD_PRODUCTS_REQUEST_SUCCESS:
-            return {
-              ...state,
-              error:false,
-              loading: false
-            }
-      
-          case ADD_PRODUCTS_REQUEST_FAILURE:
-            return {
-              ...state,
-              loading: false,
-              error: true,
-            }
+    case DELETE_PRODUCTS_REQUEST_SUCCESS:
+      let myArray = state.products.filter(function(obj) {
+        return obj.id !== action.data;
+      });
+      return {
+        ...state,
+        error: false,
+        loading: false,
+        products: myArray
+      };
+
+    case DELETE_PRODUCTS_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
+
+    case ADD_PRODUCTS_REQUEST_STARTED:
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+
+    case ADD_PRODUCTS_REQUEST_SUCCESS:
+      return {
+        ...state,
+        error: false,
+        loading: false
+      };
+
+    case ADD_PRODUCTS_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
     default:
-      return state
+      return state;
   }
 }

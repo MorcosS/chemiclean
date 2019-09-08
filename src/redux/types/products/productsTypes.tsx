@@ -16,11 +16,19 @@ export const ADD_PRODUCTS_REQUEST_FAILURE = "ADD_PRODUCTS_REQUEST_FAILURE";
 
 export const EDIT_PRODUCT_ = "GET_ALL_PRODUCTS";
 
-export default interface Product {
+export interface Product {
   id: number;
   name: string;
   supplier: string;
   isUpdated: boolean;
+}
+
+export interface NewProduct {
+  Name: string;
+  Supplier: string;
+  Uri: string;
+  UserName:string;
+  Password:string;
 }
 
 export interface Paging {
@@ -92,10 +100,7 @@ interface DeleteProductStartAction {
 
 interface DeleteProductsSuccessAction {
   type: typeof DELETE_PRODUCTS_REQUEST_SUCCESS,
-  data: {
-    items: Product[],
-    count: number
-  },
+  data: number
 }
 
 

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import Product from "../../redux/types/products/productsTypes";
+import {Product} from "../../redux/types/products/productsTypes";
 import { CONSTANTS } from '../../constants/Constants';
 import i18n from "i18next";
 
@@ -15,12 +15,11 @@ interface ProductItemState {
 interface ProductProps {
   product: Product,
   deleteItem: (id: number) => void,
-  updateItem: (product: Product) => void,
-  addItem: (product: Product) => void
+  updateItem: (product: Product) => void
 }
 
 
-export default class UserComponent extends React.Component<ProductProps, ProductItemState> {
+export default class ProductComponent extends React.Component<ProductProps, ProductItemState> {
   constructor(props: ProductProps) {
     super(props);
     this.state = {
@@ -78,7 +77,7 @@ export default class UserComponent extends React.Component<ProductProps, Product
     const { id } = this.props.product
     const { isNameEditable,
       isSupplierEditable,
-      isUpdatedEditable, name, isUpdated, supplier, addProductAction } = this.state
+      isUpdatedEditable, name, isUpdated, supplier } = this.state
     return (
       <tr>
         <td>{id}</td>
@@ -87,15 +86,11 @@ export default class UserComponent extends React.Component<ProductProps, Product
         <td onClick={() => this.updateCell('supplier', true)}  >{!isSupplierEditable ? supplier : <input onChange={(event) => this.change("supplier", event)} onBlur={() => this.updateCell('supplier', false)} onKeyDownCapture={(event) =>
           event.keyCode === 13 && this.updateCell('supplier', false)} autoFocus={true} defaultValue={supplier} />}</td>
         <td onClick={() => this.updateCell('isUpdated', true)} >{!isUpdatedEditable ? isUpdated.toString() : <input onChange={(event) => this.change("isUpdated", event)} onBlur={() => this.updateCell('isUpdated', false)} type="checkbox" defaultChecked={isUpdated} />}</td>
-        <td><a href={CONSTANTS.BASE_URL + "Download?id=" + id} download>{i18n.t(CONSTANTS
+        <td><a href={CONSTANTS.BASE_URL + "Download/" + id} download>{i18n.t(CONSTANTS
           .DOWNLOAD_DOC)}</a></td>
         <td>
-          {id ? <span onClick={this.handleDeleteItem} className="glyphicon glyphicon-trash"></span>
-            : <p onClick={() => addProductAction({
-              name: name, supplier: name, isUpdated
-                : isUpdated
-            })} >save</p>
-          }
+          <span onClick={this.handleDeleteItem} className="glyphicon glyphicon-trash"></span>
+            
         </td>
       </tr>
     );

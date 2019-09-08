@@ -1,6 +1,6 @@
-import React, { ChangeEvent } from "react";
-import { Table, Pagination, PageItem, Form } from "react-bootstrap";
-import Product, { ProductsState, Paging } from "../../redux/types/products/productsTypes";
+import React from "react";
+import { Table } from "react-bootstrap";
+import {Product, ProductsState, Paging, NewProduct } from "../../redux/types/products/productsTypes";
 import { getProducts, deleteProductAction, updateProductAction, addProductAction } from '../../redux/actions/products/productsActions';
 import { connect } from 'react-redux'
 import { AppState } from "../../redux/reducers";
@@ -8,13 +8,14 @@ import ProductItem from "../../components/product/ProductItem"
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import i18n from "i18next";
 import { CONSTANTS } from '../../constants/Constants';
+import AddProduct from "../../components/product/NewProduct"
 
 interface ProductsProps {
   products: Product[],
   getProducts: (page: number) => void,
   deleteProductAction: (id: number) => void,
   updateProductAction: (product: Product) => void,
-  addProductAction: (product: Product) => void,
+  addProductAction: (product: NewProduct) => void,
   paging: Paging
 }
 
@@ -58,6 +59,7 @@ class Products extends React.Component<ProductsProps> {
             {i18n.t(CONSTANTS.DANISH)}
           </label>
         </form>
+          <button className="pull-right" >Add new product</button>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -71,11 +73,13 @@ class Products extends React.Component<ProductsProps> {
           </thead>
           <tbody>
             {products.map((product: Product) =>
-              <ProductItem deleteItem={deleteProductAction} updateItem={updateProductAction} addItem={addProductAction} product={product} />
+              <ProductItem deleteItem={deleteProductAction} updateItem={updateProductAction} product={product} />
             )}
+
           </tbody>
         </Table>
-        <PaginationComponent fetchMoreData={(nextPage: number) => getProducts(nextPage)} count={100} currentPage={paging.currentPage} itemsPerPage={10} />
+        <PaginationComponent fetchMoreData={(nextPage: number) => getProducts(nextPage)} count={paging.count} currentPage={paging.currentPage} itemsPerPage={10} />
+         <AddProduct addProduct={addProductAction} />
       </div>
     );
   }

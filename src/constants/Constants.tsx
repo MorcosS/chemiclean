@@ -1,9 +1,13 @@
 export const CONSTANTS = {
+    API_BASE_URL: process.env.REACT_APP_API_BASE_URL,
     BASE_URL: process.env.REACT_APP_BASE_URL,
     LANGUAGE:"LANGUAGE",
     ENGLISH:"English",
     DANISH:"Danish",
     NAME:"NAME",
+    USERNAME:"USERNAME",
+    URI:"URI",
+    PASSWORD:"PASSWORD",
     SUPPLIER:"SUPPLIER",
     UPDATED:"UPDATED",
     DOWNLOAD:"DOWNLOAD",
