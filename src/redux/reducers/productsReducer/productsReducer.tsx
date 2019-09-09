@@ -12,7 +12,10 @@ import {
   DELETE_PRODUCTS_REQUEST_FAILURE,
   ADD_PRODUCTS_REQUEST_STARTED,
   ADD_PRODUCTS_REQUEST_SUCCESS,
-  ADD_PRODUCTS_REQUEST_FAILURE
+  ADD_PRODUCTS_REQUEST_FAILURE,
+  UPDATE_DOCUMENT_REQUEST_STARTED,
+  UPDATE_DOCUMENT_REQUEST_SUCCESS,
+  UPDATE_DOCUMENT_REQUEST_FAILURE
 } from "../../types/products/productsTypes";
 
 const initialState: ProductsState = {
@@ -73,6 +76,41 @@ export function productsReducer(
       };
 
     case UPDATE_PRODUCTS_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
+
+    case UPDATE_DOCUMENT_REQUEST_STARTED:
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+
+    case UPDATE_DOCUMENT_REQUEST_SUCCESS:
+      let filteredArray = state.products.filter(function(obj) {
+        if (obj.id === action.data) {
+          let objUpdated = {
+            id: obj.id,
+            supplier: obj.supplier,
+            isUpdated: true,
+            name: obj.name
+          };
+          return objUpdated;
+        } else {
+          return obj;
+        }
+      });
+      return {
+        ...state,
+        products: filteredArray,
+        error: false,
+        loading: false
+      };
+
+    case UPDATE_DOCUMENT_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,

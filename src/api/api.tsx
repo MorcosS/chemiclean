@@ -48,3 +48,15 @@ export function addProduct<T>(product: NewProduct): Promise<Response> {
     return response.json();
   });
 }
+
+
+export function updateProductDocument<T>(id:number): Promise<Response> {
+  return fetch(CONSTANTS.BASE_URL + `Update/${id}`, {
+    method: "GET"
+  }).then(response => {
+    if (!response.ok) {
+      return { error: Error(response.statusText), hasError: true };
+    }
+    return { hasError:false};
+  });
+}

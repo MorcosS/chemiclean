@@ -5,5 +5,8 @@
     "DOWNLOAD":"Download",
     "DOWNLOAD_DOC":"Download Document",
     "ACTION":"Action",
-    "DELETE_CONFIRMATION_MESSAGE":"Are you sure you want to delete this item?"
+    "DELETE_CONFIRMATION_MESSAGE":"Are you sure you want to delete this item?",
+    "UPDATE_DOC":"update document",
+    "USERNAME":"username",
+    "PASSWORD":"password"
 }

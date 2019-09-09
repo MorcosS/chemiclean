@@ -1,0 +1,94 @@
+#yaml 
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.10
+  
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Test using Jest and Enzyme!
+          command: |
+              yarn test    
+
+ 
+  deploy:
+    working_directory: ~/repo
+ 
+    docker:
+      - image: circleci/node:8.10
+ 
+    steps: 
+        - checkout
+      # Download and cache dependencies
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
+
+        - run: yarn install
+
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "package.json" }}
+
+        - run:
+              name: Test using Jest and Enzyme!
+              command: |
+                  yarn test    
+        
+        - deploy:
+           name: Deploy
+           message: "Successfully deployed version to the staging environment! :simple_smile: Check it now on http://something.com/"
+           command: |
+               sudo apt-get update && sudo apt-get install -y python-dev
+               sudo curl -O https://bootstrap.pypa.io/get-pip.py
+               sudo python get-pip.py
+               sudo pip install awscli==1.11.18
+               aws --version
+               aws s3 ls
+               yarn run deploy 
+               aws configure set preview.cloudfront true
+               aws cloudfront create-invalidation --distribution-id ${CloudFrontID} --paths ${YOURPATHS}
+
+
+workflows:
+  version: 2
+  build_accept_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                  - develop
+      - deploy:
+          filters:
+            branches:
+              only:
+                - staging

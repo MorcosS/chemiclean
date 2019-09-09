@@ -5,5 +5,8 @@
     "DOWNLOAD":"Download",
     "DOWNLOAD_DOC":"Download dokument",
     "ACTION":"Handling",
-    "DELETE_CONFIRMATION_MESSAGE":"Er du sikker på, at du vil slette denne vare?"
+    "DELETE_CONFIRMATION_MESSAGE":"Er du sikker på, at du vil slette denne vare?",
+    "UPDATE_DOC":"opdater dokument",
+    "USERNAME":"brugernavn",
+    "PASSWORD":"adgangskode"
 }

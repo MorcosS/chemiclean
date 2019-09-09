@@ -42,3 +42,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+Some Enhancement:
+-  Adding CI Solution to publish our webapp directly on push or approved pull request merge.
+-  Adding unit test on views and all redux flow operations {actions, reducers} as explained in the demo included in the path "./Unit Tests and CI demos"

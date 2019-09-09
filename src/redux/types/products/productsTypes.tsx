@@ -6,6 +6,10 @@ export const UPDATE_PRODUCTS_REQUEST_STARTED = "UPDATE_PRODUCTS_REQUEST_STARTED"
 export const UPDATE_PRODUCTS_REQUEST_SUCCESS = "UPDATE_PRODUCTS_REQUEST_SUCCESS";
 export const UPDATE_PRODUCTS_REQUEST_FAILURE = "UPDATE_PRODUCTS_REQUEST_FAILURE";
 
+export const UPDATE_DOCUMENT_REQUEST_STARTED = "UPDATE_DOCUMENT_REQUEST_STARTED";
+export const UPDATE_DOCUMENT_REQUEST_SUCCESS = "UPDATE_DOCUMENT_REQUEST_SUCCESS";
+export const UPDATE_DOCUMENT_REQUEST_FAILURE = "UPDATE_DOCUMENT_REQUEST_FAILURE";
+
 export const DELETE_PRODUCTS_REQUEST_STARTED = "DELETE_PRODUCTS_REQUEST_STARTED";
 export const DELETE_PRODUCTS_REQUEST_SUCCESS = "DELETE_PRODUCTS_REQUEST_SUCCESS";
 export const DELETE_PRODUCTS_REQUEST_FAILURE = "DELETE_PRODUCTS_REQUEST_FAILURE";
@@ -71,13 +75,31 @@ interface UpdateProductStartAction {
 }
 
 interface UpdateProductsSuccessAction {
-  type: typeof UPDATE_PRODUCTS_REQUEST_SUCCESS
+  type: typeof UPDATE_PRODUCTS_REQUEST_SUCCESS,
+  data: number
+}
+
+
+interface UpdateDocumentFailureAction {
+  type: typeof UPDATE_DOCUMENT_REQUEST_FAILURE;
+}
+
+
+
+interface UpdateDocumentStartAction {
+  type: typeof UPDATE_DOCUMENT_REQUEST_STARTED;
+}
+
+interface UpdateDocumentSuccessAction {
+  type: typeof UPDATE_DOCUMENT_REQUEST_SUCCESS,
+  data: number
 }
 
 
 interface AddProductFailureAction {
   type: typeof ADD_PRODUCTS_REQUEST_FAILURE;
 }
+
 
 
 interface AddProductStartAction {
@@ -108,3 +130,4 @@ interface DeleteProductsSuccessAction {
 
 
 export type ProductsActionTypes = GetProductsStartAction | GetProductsSuccessAction | GetProductsFailureAction | UpdateProductFailureAction | UpdateProductStartAction | UpdateProductsSuccessAction | AddProductFailureAction | AddProductStartAction | AddProductsSuccessAction | DeleteProductFailureAction | DeleteProductStartAction | DeleteProductsSuccessAction
+| UpdateDocumentStartAction | UpdateDocumentSuccessAction | UpdateDocumentFailureAction

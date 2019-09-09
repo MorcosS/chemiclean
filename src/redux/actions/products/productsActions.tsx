@@ -15,7 +15,7 @@ import {
   Product,
   NewProduct
 } from "../../types/products/productsTypes";
-import { getAllProducts, deleteProduct, updateProduct, addProduct } from "../../../api/api";
+import { getAllProducts, deleteProduct, updateProduct, addProduct, updateProductDocument } from "../../../api/api";
 import { ThunkAction } from "redux-thunk";
 import { Action } from "redux";
 
@@ -119,3 +119,28 @@ export const addProductAction = (newProduct: NewProduct): ThunkAction<void, Prod
         throw error;
       });
   };
+
+
+export const updateProductDocumentAction = (id: number) : ThunkAction<void, ProductsState, null, Action<string>> =>
+// make async call to api, handle promise, dispatch action when promise is resolved
+async dispatch => {
+  dispatch({
+    type: UPDATE_PRODUCTS_REQUEST_STARTED
+  });
+  return updateProductDocument(id).then(response => {
+    if (response.hasError) {
+      dispatch({
+        type: UPDATE_PRODUCTS_REQUEST_FAILURE,
+        data: response.error,
+      });
+    } else {
+      dispatch({
+        type: UPDATE_PRODUCTS_REQUEST_SUCCESS,
+        data: id,
+      });
+    }
+  })
+    .catch(error => {
+      throw error;
+    });
+};

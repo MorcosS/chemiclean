@@ -21,6 +21,11 @@ export class PaginationComponent extends React.Component<PagingProps> {
           onClick={() => currentPage !== 0 && fetchMoreData(currentPage - 1)}
           disabled={currentPage === 0}
         />
+
+        <Pagination.Item  disabled={Math.ceil(count / itemsPerPage - 1) < 1} onClick={() => fetchMoreData(0)}>{1}</Pagination.Item>
+        <Pagination.Item  disabled={Math.ceil(count / itemsPerPage - 1) < 2} onClick={() => fetchMoreData(1)}>{2}</Pagination.Item>
+        <Pagination.Item  disabled={Math.ceil(count / itemsPerPage - 1) < 3} onClick={() => fetchMoreData(2)}>{3}</Pagination.Item>
+        <Pagination.Ellipsis />
         <Pagination.Next
           onClick={() =>
             currentPage < count / itemsPerPage - 1 &&

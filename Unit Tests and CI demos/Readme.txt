@@ -1,0 +1,2 @@
+ - CI included in the folder is a demo from other working project because there is no cloud provided to publish on.\
+ -	Kindly note that unit tests included in the folder are just a demo from a previous project, It is because I couldn't manage to setup Enzyme and Jest with TS in the matter of task timing.
